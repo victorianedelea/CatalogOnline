@@ -1,7 +1,12 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using CatalogOnline.Data;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddDbContext<CatalogOnlineContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("CatalogOnlineContext") ?? throw new InvalidOperationException("Connection string 'CatalogOnlineContext' not found.")));
 
 var app = builder.Build();
 
